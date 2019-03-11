@@ -2,10 +2,11 @@
 # -*- coding: utf-8 -*-
 """Tuneup assignment"""
 
-__author__ = "???"
+__author__ = "jayaimzzz"
 
 import cProfile
 import pstats
+import timeit
 
 
 def profile(func):
@@ -41,7 +42,11 @@ def find_duplicate_movies(src):
 
 def timeit_helper():
     """Part A:  Obtain some profiling measurements using timeit"""
-    # YOUR CODE GOES HERE
+    imports = '''from __main__ import find_duplicate_movies'''
+    code = '''find_duplicate_movies("movies.txt")'''
+    t = timeit.Timer(setup=imports, stmt=code)
+    results = t.repeat(repeat=7,number=5)
+    print "Best time across 7 repeats of 5 runs per repeat: {}".format(min(results))
 
 
 def main():
@@ -52,4 +57,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # main()
+    timeit_helper()
