@@ -7,6 +7,7 @@ __author__ = "jayaimzzz"
 import cProfile
 import pstats
 import timeit
+import collections
 
 
 def profile(func):
@@ -33,21 +34,24 @@ def read_movies(src):
 
 def is_duplicate(title, movies):
     """Case insensitive search within a list"""
-    for movie in movies:
-        if movie.lower() == title.lower():
-            return True
-    return False
+    # title_lower = title.lower()
+    # for movie in movies:
+    #     if movie.lower() == title_lower:
+    #         return True
+    # return title.lower in 
 
 @profile
 def find_duplicate_movies(src):
     """Returns a list of duplicate movies from a src list"""
     movies = read_movies(src)
-    duplicates = []
-    while movies:
-        movie = movies.pop()
-        if is_duplicate(movie, movies):
-            duplicates.append(movie)
-    return duplicates
+    return [movie for movie, count in collections.Counter(movies).items() if count > 1]
+
+    # while movies:
+    #     movie = movies.pop()
+    #     # if is_duplicate(movie, movies):
+    #     if movie in movies:
+    #         duplicates.append(movie)
+    # return duplicates
 
 
 def timeit_helper():
